@@ -22,6 +22,21 @@ public:
     }
 };
 
+class Square
+{
+    double frequency_;
+    double phase_;
+    double amplitude_;
+
+public:
+    Square(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    double operator()(double arg) const
+    {
+        double ph = frequency_ * arg + phase_;
+        return 2.0 * amplitude_ * (2.0 * std::floor(ph) - std::floor(2.0 * ph)) + amplitude_;
+    }
+};
+
 class Sawtooth
 {
     double frequency_;
