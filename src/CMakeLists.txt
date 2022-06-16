@@ -18,6 +18,6 @@ find_package(BLAS REQUIRED NAMES OpenBLAS)
 find_path(ARMADILLO_LIBRARY armadillo)
 include_directories(${ARMADILLO_LIBRARY})
 
-add_executable(pozakres main.cpp)
+add_executable(pozakres main.cpp ../include/oscillator.hpp ../include/noise.hpp ../include/wave.hpp ../include/random.hpp)
 target_link_libraries(pozakres ${OpenBLAS_LIBRARIES})
 target_link_libraries(pozakres ${wxWidgets_LIBRARIES})
