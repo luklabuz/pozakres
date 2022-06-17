@@ -12,6 +12,9 @@ class Oscillator
     struct Concept
     {
         virtual ~Concept() = default;
+        virtual void setFrequency(double) = 0;
+        virtual void setPhase(double) = 0;
+        virtual void setAmplitude(double) = 0;
         virtual double operator()(double) const = 0;
     };
 
@@ -20,6 +23,18 @@ class Oscillator
     {
         T data_;
         explicit Model(const T& data_) : data_(data_) {}
+        void setFrequency(double f) override
+        {
+            data_.setFrequency(f);
+        }
+        void setPhase(double p) override
+        {
+            data_.setPhase(p);
+        }
+        void setAmplitude(double a) override
+        {
+            data_.setAmplitude(a);
+        }
         double operator()(double arg) const override
         {
             return data_(arg);
@@ -34,6 +49,19 @@ public:
 
     template<class T>
     Oscillator(const T& data_) : concept_(std::make_shared<Model<T>>(data_)) {}
+
+    void setFrequency(double f)
+    {
+        concept_->setFrequency(f);
+    }
+    void setPhase(double p)
+    {
+        concept_->setPhase(p);
+    }
+    void setAmplitude(double a)
+    {
+        concept_->setAmplitude(a);
+    }
 
     double operator()(double arg) const
     {

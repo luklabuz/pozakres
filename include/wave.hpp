@@ -15,7 +15,20 @@ class Sine
     double amplitude_;
 
 public:
+    Sine() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Sine(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    void setFrequency(double f)
+    {
+        frequency_ = f;
+    }
+    void setPhase(double p)
+    {
+        phase_ = p;
+    }
+    void setAmplitude(double a)
+    {
+        amplitude_ = a;
+    }
     double operator()(double arg) const
     {
         return amplitude_ * std::sin(2.0 * std::numbers::pi * frequency_ * arg + phase_);
@@ -29,7 +42,20 @@ class Square
     double amplitude_;
 
 public:
+    Square() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Square(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    void setFrequency(double f)
+    {
+        frequency_ = f;
+    }
+    void setPhase(double p)
+    {
+        phase_ = p;
+    }
+    void setAmplitude(double a)
+    {
+        amplitude_ = a;
+    }
     double operator()(double arg) const
     {
         double ph = frequency_ * arg + phase_;
@@ -44,7 +70,20 @@ class Sawtooth
     double amplitude_;
 
 public:
+    Sawtooth() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Sawtooth(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    void setFrequency(double f)
+    {
+        frequency_ = f;
+    }
+    void setPhase(double p)
+    {
+        phase_ = p;
+    }
+    void setAmplitude(double a)
+    {
+        amplitude_ = a;
+    }
     double operator()(double arg) const
     {
         double ph = arg * frequency_ + phase_;
@@ -59,7 +98,20 @@ class Triangle
     double amplitude_;
 
 public:
+    Triangle() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Triangle(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    void setFrequency(double f)
+    {
+        frequency_ = f;
+    }
+    void setPhase(double p)
+    {
+        phase_ = p;
+    }
+    void setAmplitude(double a)
+    {
+        amplitude_ = a;
+    }
     double operator()(double arg) const
     {
         double ph = frequency_ * (arg + phase_);

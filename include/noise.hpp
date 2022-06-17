@@ -15,6 +15,12 @@ class WhiteNoise
 public:
     WhiteNoise() : amplitude_(1.0) {}
     explicit WhiteNoise(double a) : amplitude_(a) {}
+    void setFrequency(double f) {}
+    void setPhase(double p) {}
+    void setAmplitude(double a)
+    {
+        amplitude_ = a;
+    }
     double operator()(double) const
     {
         static std::uniform_real_distribution<double> dist(-amplitude_, amplitude_);
