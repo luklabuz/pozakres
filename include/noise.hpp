@@ -15,8 +15,8 @@ class WhiteNoise
 public:
     WhiteNoise() : amplitude_(1.0) {}
     explicit WhiteNoise(double a) : amplitude_(a) {}
-    void setFrequency(double f) {}
-    void setPhase(double p) {}
+    void setFrequency(double) {}
+    void setPhase(double) {}
     void setAmplitude(double a)
     {
         amplitude_ = a;
