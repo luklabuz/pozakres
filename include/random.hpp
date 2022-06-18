@@ -7,11 +7,6 @@
 
 #include <random>
 
-std::mt19937& random()
-{
-    static std::random_device rd;
-    static std::mt19937 mt(rd());
-    return mt;
-}
+std::mt19937& random();
 
 #endif //POZAKRES_RANDOM_HPP

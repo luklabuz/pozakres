@@ -8,9 +8,11 @@
 #include <vector>
 #include <armadillo>
 
-#include "oscillator.hpp"
 #include "melody.hpp"
 #include "detail.hpp"
+#include "oscillator.hpp"
+#include "noise.hpp"
+#include "filter.hpp"
 
 struct ADSR
 {
@@ -25,7 +27,7 @@ class Instrument
     struct Concept
     {
         virtual ~Concept() = default;
-        virtual arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) const = 0;
+        virtual arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) = 0;
     };
 
     template<class T>
@@ -33,7 +35,7 @@ class Instrument
     {
         T data_;
         Model(const T& data_) : data_(data_) {}
-        arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const override
+        arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) override
         {
             return data_(note, tmp, bpm, data);
         }
@@ -48,7 +50,7 @@ public:
     template<class T>
     Instrument(const T& data_) : concept_(std::make_shared<Model<T>>(data_)) {}
 
-    arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const
+    arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data)
     {
         if(concept_ == nullptr) return {0};
         else return concept_->operator()(note, tmp, bpm, data);
@@ -65,8 +67,19 @@ private:
 
 public:
     AdditiveSynth(Oscillators osc_, ADSR adsr_) : osc_(std::move(osc_)), adsr_(adsr_) {}
-    arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) const;
+    arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&);
 };
 
+class FilteredNoise
+{
+    WhiteNoise noise_;
+    LowPassFilter filter_;
+    Oscillator lfo_;
+
+public:
+    FilteredNoise(WhiteNoise noise_, LowPassFilter filter_, Oscillator lfo_)
+        : noise_(noise_), filter_(filter_), lfo_(lfo_) {}
+    arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&);
+};
 
 #endif //POZAKRES_INSTRUMENT_HPP

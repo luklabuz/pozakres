@@ -15,6 +15,18 @@ class WhiteNoise
 public:
     WhiteNoise() : amplitude_(1.0) {}
     explicit WhiteNoise(double a) : amplitude_(a) {}
+    [[nodiscard]] double getFrequency() const
+    {
+        return 0.0;
+    }
+    [[nodiscard]] double getPhase() const
+    {
+        return 0.0;
+    }
+    [[nodiscard]] double getAmplitude() const
+    {
+        return amplitude_;
+    }
     void setFrequency(double) {}
     void setPhase(double) {}
     void setAmplitude(double a)

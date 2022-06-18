@@ -25,7 +25,7 @@ public:
     Piece(Temperament  tmp_, double bpm_, const TrackData& data_, Tracks tracks_) :
         tmp_(std::move(tmp_)), bpm_(bpm_), data_(data_), tracks_(std::move(tracks_)) {}
 
-    [[nodiscard]] std::vector<arma::dvec> play() const;
+    [[nodiscard]] std::vector<arma::dvec> play();
 
 };
 

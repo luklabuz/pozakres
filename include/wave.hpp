@@ -17,6 +17,18 @@ class Sine
 public:
     Sine() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Sine(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    [[nodiscard]] double getFrequency() const
+    {
+       return frequency_;
+    }
+    [[nodiscard]] double getPhase() const
+    {
+        return phase_;
+    }
+    [[nodiscard]] double getAmplitude() const
+    {
+        return amplitude_;
+    }
     void setFrequency(double f)
     {
         frequency_ = f;
@@ -44,6 +56,18 @@ class Square
 public:
     Square() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Square(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    [[nodiscard]] double getFrequency() const
+    {
+        return frequency_;
+    }
+    [[nodiscard]] double getPhase() const
+    {
+        return phase_;
+    }
+    [[nodiscard]] double getAmplitude() const
+    {
+        return amplitude_;
+    }
     void setFrequency(double f)
     {
         frequency_ = f;
@@ -72,6 +96,18 @@ class Sawtooth
 public:
     Sawtooth() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Sawtooth(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    [[nodiscard]] double getFrequency() const
+    {
+        return frequency_;
+    }
+    [[nodiscard]] double getPhase() const
+    {
+        return phase_;
+    }
+    [[nodiscard]] double getAmplitude() const
+    {
+        return amplitude_;
+    }
     void setFrequency(double f)
     {
         frequency_ = f;
@@ -100,6 +136,18 @@ class Triangle
 public:
     Triangle() : frequency_(0.0), phase_(0.0), amplitude_(0.0) {}
     Triangle(double f, double p, double a) : frequency_(f), phase_(p), amplitude_(a) {}
+    [[nodiscard]] double getFrequency() const
+    {
+        return frequency_;
+    }
+    [[nodiscard]] double getPhase() const
+    {
+        return phase_;
+    }
+    [[nodiscard]] double getAmplitude() const
+    {
+        return amplitude_;
+    }
     void setFrequency(double f)
     {
         frequency_ = f;

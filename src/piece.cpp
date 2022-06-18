@@ -4,7 +4,7 @@
 
 #include "piece.hpp"
 
-std::vector<arma::dvec> Piece::play() const
+std::vector<arma::dvec> Piece::play()
 {
     size_t duration = 0;
     for(const auto& note : std::get<1>(tracks_[0]))
@@ -18,7 +18,6 @@ std::vector<arma::dvec> Piece::play() const
         for(const auto& note : std::get<1>(track))
         {
             size_t dur = note.duration_ * 60 * data_.sampleRate / bpm_;
-            //std::cout << "err\n";
             res.subvec(last, last + dur - 1) += std::get<0>(track)(note, tmp_, bpm_, data_);
             last += dur;
         }

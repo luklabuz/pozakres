@@ -4,7 +4,7 @@
 
 #include "instrument.hpp"
 
-arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const
+arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data)
 {
     arma::dvec res(note.duration_ * 60 * data.sampleRate / bpm, arma::fill::zeros);
     arma::dvec temp(note.duration_ * 60 * data.sampleRate / bpm, arma::fill::zeros);
@@ -13,7 +13,6 @@ arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, d
     //generate waveform
     for(auto& [osc, fr, amp] : osc_)
     {
-        //std::cout << typeid(osc).name() << '\n';
         osc.setFrequency(fr * tmp(note));
         osc.setAmplitude(amp * note.volume_);
         Sampler sampler(data.sampleRate, osc);
@@ -38,6 +37,25 @@ arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, d
     //release
     arma::dvec release = arma::linspace(adsr_.sustain_, 0.0, adsr_.release_ * data.sampleRate);
     res.subvec(res.size() - adsr_.release_ * data.sampleRate, res.size() - 1) %= release;
+
+    return res;
+}
+
+arma::dvec FilteredNoise::operator()(const Note& note, const Temperament&, double bpm, const TrackData& data)
+{
+    arma::dvec res(note.duration_ * 60 * data.sampleRate / bpm, arma::fill::zeros);
+    noise_.setAmplitude(note.volume_);
+    Sampler sampler(data.sampleRate, noise_);
+    Sampler lfo(data.sampleRate, lfo_);
+
+    double freq = filter_.getFrequency();
+
+    res.imbue(sampler);
+    res.transform([=, this, &lfo](double x) {
+        double f = lfo();
+        filter_.setFrequency(freq + f);
+        return filter_(x);
+    });
 
     return res;
 }
