@@ -5,6 +5,8 @@
 #ifndef POZAKRES_DETAIL_HPP
 #define POZAKRES_DETAIL_HPP
 
+#include <random>
+
 struct TrackData
 {
     int sampleRate;
@@ -12,5 +14,7 @@ struct TrackData
     int bitDepth;
     int channels;
 };
+
+std::mt19937& random();
 
 #endif //POZAKRES_DETAIL_HPP

@@ -6,7 +6,7 @@
 #define POZAKRES_NOISE_HPP
 
 #include <random>
-#include "random.hpp"
+#include "detail.hpp"
 
 class WhiteNoise
 {

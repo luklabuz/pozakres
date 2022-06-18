@@ -7,6 +7,9 @@
 
 #include <random>
 
-std::mt19937& random();
+#include "melody.hpp"
+#include "detail.hpp"
+
+std::vector<Note> randomMelody(const TrackData&, double, double);
 
 #endif //POZAKRES_RANDOM_HPP

@@ -13,10 +13,15 @@ arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, d
     //generate waveform
     for(auto& [osc, fr, amp] : osc_)
     {
-        osc.setFrequency(fr * tmp(note));
-        osc.setAmplitude(amp * note.volume_);
-        Sampler sampler(data.sampleRate, osc);
-        temp.imbue(sampler);
+        if(note.value_ == "")
+            temp.fill(0.0);
+        else
+        {
+            osc.setFrequency(fr * tmp(note));
+            osc.setAmplitude(amp * note.volume_);
+            Sampler sampler(data.sampleRate, osc);
+            temp.imbue(sampler);
+        }
         res += temp;
         amplitude += amp;
     }

@@ -19,6 +19,6 @@ find_path(ARMADILLO_LIBRARY armadillo)
 include_directories(${ARMADILLO_LIBRARY})
 
 add_executable(pozakres main.cpp melody.cpp
-        player.cpp instrument.cpp piece.cpp filter.cpp random.cpp)
+        player.cpp instrument.cpp piece.cpp filter.cpp random.cpp detail.cpp)
 target_link_libraries(pozakres ${OpenBLAS_LIBRARIES})
 target_link_libraries(pozakres ${wxWidgets_LIBRARIES})
