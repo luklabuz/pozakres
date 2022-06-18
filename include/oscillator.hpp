@@ -50,15 +50,15 @@ public:
     template<class T>
     Oscillator(const T& data_) : concept_(std::make_shared<Model<T>>(data_)) {}
 
-    void setFrequency(double f)
+    void setFrequency(double f) const
     {
         concept_->setFrequency(f);
     }
-    void setPhase(double p)
+    void setPhase(double p) const
     {
         concept_->setPhase(p);
     }
-    void setAmplitude(double a)
+    void setAmplitude(double a) const
     {
         concept_->setAmplitude(a);
     }

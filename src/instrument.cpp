@@ -4,21 +4,24 @@
 
 #include "instrument.hpp"
 
-arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data)
+arma::dvec AdditiveSynth::operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const
 {
     arma::dvec res(note.duration_ * 60 * data.sampleRate / bpm, arma::fill::zeros);
     arma::dvec temp(note.duration_ * 60 * data.sampleRate / bpm, arma::fill::zeros);
+    double amplitude = 0.0;
 
     //generate waveform
-    for(auto& osc : osc_)
+    for(auto& [osc, fr, amp] : osc_)
     {
-        std::get<0>(osc).setFrequency(std::get<1>(osc) * tmp(note));
-        std::get<0>(osc).setAmplitude(std::get<2>(osc) * note.volume_);
-        Sampler sampler(data.sampleRate, std::get<0>(osc));
+        //std::cout << typeid(osc).name() << '\n';
+        osc.setFrequency(fr * tmp(note));
+        osc.setAmplitude(amp * note.volume_);
+        Sampler sampler(data.sampleRate, osc);
         temp.imbue(sampler);
         res += temp;
+        amplitude += amp;
     }
-    res /= osc_.size();
+    res /= amplitude;
 
     //apply envelope
     //attack

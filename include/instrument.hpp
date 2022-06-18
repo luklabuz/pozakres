@@ -25,7 +25,7 @@ class Instrument
     struct Concept
     {
         virtual ~Concept() = default;
-        virtual arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) = 0;
+        virtual arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) const = 0;
     };
 
     template<class T>
@@ -33,7 +33,7 @@ class Instrument
     {
         T data_;
         Model(const T& data_) : data_(data_) {}
-        arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) override
+        arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const override
         {
             return data_(note, tmp, bpm, data);
         }
@@ -48,7 +48,7 @@ public:
     template<class T>
     Instrument(const T& data_) : concept_(std::make_shared<Model<T>>(data_)) {}
 
-    arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data)
+    arma::dvec operator()(const Note& note, const Temperament& tmp, double bpm, const TrackData& data) const
     {
         if(concept_ == nullptr) return {0};
         else return concept_->operator()(note, tmp, bpm, data);
@@ -57,13 +57,15 @@ public:
 
 class AdditiveSynth
 {
+public:
     using Oscillators = std::vector<std::tuple<Oscillator, double, double>>;
+private:
     Oscillators osc_;
     ADSR adsr_;
 
 public:
     AdditiveSynth(Oscillators osc_, ADSR adsr_) : osc_(std::move(osc_)), adsr_(adsr_) {}
-    arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&);
+    arma::dvec operator()(const Note&, const Temperament&, double, const TrackData&) const;
 };
 
 

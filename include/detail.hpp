@@ -10,6 +10,7 @@ struct TrackData
     int sampleRate;
     int length;
     int bitDepth;
+    int channels;
 };
 
 #endif //POZAKRES_DETAIL_HPP
