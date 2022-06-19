@@ -7,7 +7,6 @@
 
 #include "application.hpp"
 #include "random.hpp"
-#include "detail.hpp"
 #include "piece.hpp"
 #include "wave.hpp"
 
@@ -97,22 +96,15 @@ void Frame::OnGenerate(wxCommandEvent& e)
     }
     filename.append(".wav");
 
-    int bpm = std::uniform_int_distribution<int>(5, 9)(random()) * 10;
+    Piece piece = randomPiece({sampleRate, bitDepth, channels}, static_cast<double>(length));
 
-    Piece piece(equal_temperament(),
-                static_cast<double>(bpm),
-                {sampleRate, 1, bitDepth, channels},
-                {{AdditiveSynth({{Sine(), 1.0, 1.0},
-                                 {Sine(), 2.0, 0.5}}, {0.1, 0.1, 0.7, 0.1}),
-                  randomMelody({sampleRate, 1, bitDepth}, static_cast<double>(length), static_cast<double>(bpm))}});
-
-    player->fromTracks({sampleRate, 1, bitDepth, channels}, piece.play());
+    player->fromTracks({sampleRate, bitDepth, channels}, piece.play());
     player->save(filename);
 }
 
 bool Application::OnInit()
 {
-    auto* frame = new Frame("Witaj");
+    auto* frame = new Frame("Pozakres");
     frame->SetClientSize(400, 700);
     frame->Center();
     frame->SetIcon(wxICON(sample));

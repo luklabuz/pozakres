@@ -10,7 +10,6 @@
 struct TrackData
 {
     int sampleRate;
-    int length;
     int bitDepth;
     int channels;
 };

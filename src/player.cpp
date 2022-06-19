@@ -11,8 +11,6 @@ void Player::fromTracks(TrackData data_, const std::vector<arma::dvec>& tracks_)
 
     AudioFile<double>::AudioBuffer buffer;
     buffer.resize(tracks_.size());
-    for(auto& channel : buffer)
-        channel.resize(data_.sampleRate * data_.length);
     for(int i = 0; i < buffer.size(); ++i)
         buffer[i] = arma::conv_to<std::vector<double>>::from(tracks_[i]);
     file_.setAudioBuffer(buffer);
