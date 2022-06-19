@@ -18,7 +18,14 @@ find_package(BLAS REQUIRED NAMES OpenBLAS)
 find_path(ARMADILLO_LIBRARY armadillo)
 include_directories(${ARMADILLO_LIBRARY})
 
-add_executable(pozakres main.cpp melody.cpp
-        player.cpp instrument.cpp piece.cpp filter.cpp random.cpp detail.cpp)
+set(SRC_FILES
+        main.cpp melody.cpp
+        player.cpp instrument.cpp piece.cpp filter.cpp random.cpp detail.cpp application.cpp)
+
+if(WIN32)
+    list(APPEND SRC_FILES resource.rc)
+endif()
+
+add_executable(pozakres ${SRC_FILES})
 target_link_libraries(pozakres ${OpenBLAS_LIBRARIES})
 target_link_libraries(pozakres ${wxWidgets_LIBRARIES})
