@@ -21,6 +21,7 @@ std::vector<arma::dvec> Piece::play()
             res.subvec(last, last + dur - 1) += std::get<0>(track)(note, tmp_, bpm_, data_);
             last += dur;
         }
+        res /= tracks_.size();
     }
 
     return std::vector<arma::dvec>(data_.channels, res);

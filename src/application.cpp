@@ -100,6 +100,8 @@ void Frame::OnGenerate(wxCommandEvent& e)
 
     player->fromTracks({sampleRate, bitDepth, channels}, piece.play());
     player->save(filename);
+
+    wxMessageBox("Generating done.", "Pozakres", wxOK | wxICON_INFORMATION);
 }
 
 bool Application::OnInit()

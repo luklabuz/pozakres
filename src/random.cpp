@@ -20,7 +20,7 @@ AdditiveSynth randomAdditiveSynth()
 
     std::vector<std::tuple<Oscillator, double, double>> oscs;
     for(int i = 1; i <= osc; ++i)
-        oscs.emplace_back(waves.at(dist4(random())), static_cast<double>(i), 1.0 / i);
+        oscs.emplace_back(waves.at(dist4(random())), static_cast<double>(std::pow(i, 2)), 1.0 / std::pow(i, 2));
 
     ADSR adsr = {
             dist2(random()) * 0.01, dist2(random()) * 0.01, dist3(random()), dist2(random()) * 0.01
@@ -34,9 +34,9 @@ std::vector<Note> randomMelody(const TrackData& data, double length, double bpm)
     auto beats = static_cast<uint32_t>(bpm * length / 60);
 
     MarkovProcess<int, 3> mp = { {0, 1, 2},
-                                 {{{0.7, 0.3, 0.0},
-                                   {0.2, 0.4, 0.4},
-                                   {0.4, 0.4, 0.2}}},
+                                 {{{0.6, 0.4, 0.0},
+                                   {0.1, 0.5, 0.4},
+                                   {0.3, 0.5, 0.2}}},
                                    0 };
     MarkovProcess<std::string, 7> value = {
             {"A", "B", "C", "D", "E", "F", "G"},

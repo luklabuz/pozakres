@@ -162,8 +162,8 @@ public:
     }
     double operator()(double arg) const
     {
-        double ph = frequency_ * (arg + phase_);
-        return 2.0 * amplitude_ * std::abs(ph + std::floor(0.5 + ph)) - amplitude_;
+        double ph = frequency_ * arg + phase_;
+        return 4.0 * amplitude_ * std::abs(ph - std::floor(0.5 + ph)) - amplitude_;
     }
 };
 
